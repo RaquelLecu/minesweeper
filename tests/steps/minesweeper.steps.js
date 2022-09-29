@@ -14,3 +14,8 @@ Then('in the mines counter display should be {int}', async(int) => {
 	const displayMines = await page.locator('data-testid=displayMines').innerText();
 	expect(displayMines).toBe(int.toString());
 });
+
+Then('the time display should be: {int}', async(int) => {
+	const displayTime = await page.locator('data-testid=displayTime').innerText();
+	expect(displayTime).toBe(int.toString());
+});

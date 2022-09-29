@@ -29,7 +29,6 @@ Feature: Minesweeper
 Background: 
 Given a user opens the app
 
-@todo
 Scenario Outline: Default display screen -> Default Mines Counter value
 Given the user load the test board: "<mockDemo>"
 Then in the mines counter display should be <counter>
@@ -41,6 +40,7 @@ Examples:
 |       4x5|        2|
 |       8x8|       10|
 
+@todo
 Scenario: Default display screen -> Default timer value
 Then the time display should be: 0
 
