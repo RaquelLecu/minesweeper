@@ -20,7 +20,7 @@ Feature: Minesweeper
 #|1|2|1|1| |
 #| |1|*|1| |
 #
-#To do this layout, you must enter the url parameter ?mockDemo=8X8&status=exposed
+#To do this layout, you must enter the url parameter ?mockDemo=8x8&status=exposed
 #mockDemo=8x8&status=exposed    ->  8x8
 # all cells exposed
 
@@ -29,8 +29,9 @@ Feature: Minesweeper
 Background: 
 Given a user opens the app
 
+@todo
 Scenario Outline: Default display screen -> Default Mines Counter value
-Given the load of <mockDemo>
+Given the user load the test board: "<mockDemo>"
 Then in the mines counter display should be <counter>
 
 Examples:
