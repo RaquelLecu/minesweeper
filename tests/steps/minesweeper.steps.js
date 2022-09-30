@@ -19,3 +19,9 @@ Then('the time display should be: {int}', async(int) => {
 	const displayTime = await page.locator('data-testid=displayTime').innerText();
 	expect(displayTime).toBe(int.toString());
 });
+
+Then('the button face should be {string}', async(string) => {
+	if(string == "happy") string = "\u{1F642}";
+	let face = await page.locator('data-testid=face').innerText();
+	expect(face).toBe(string);
+});

@@ -40,10 +40,9 @@ Examples:
 |       4x5|        2|
 |       8x8|       10|
 
-@todo
 Scenario: Default display screen -> Default timer value
 Then the time display should be: 0
-
+@todo
 Scenario: Default display screen -> Default face status
 Then the button face should be "happy"
 
