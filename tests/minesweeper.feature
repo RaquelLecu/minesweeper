@@ -42,10 +42,10 @@ Examples:
 
 Scenario: Default display screen -> Default timer value
 Then the time display should be: 0
-@todo
+
 Scenario: Default display screen -> Default face status
 Then the button face should be "happy"
-
+@todo
 Scenario: Default display screen -> All the cell must be hidden
 Then all the cells in the minefield should be "hidden"
 

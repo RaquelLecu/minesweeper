@@ -25,3 +25,13 @@ Then('the button face should be {string}', async(string) => {
 	let face = await page.locator('data-testid=face').innerText();
 	expect(face).toBe(string);
 });
+
+Then('all the cells in the minefield should be {string}', async(string) => { 
+	for(let i=0; i<8; i++){
+		for(let j=0; j<8; j++){
+			let cell =  await page.locator('id='+i+"-"+j);
+			await expect(cell).toHaveAttribute('class', string);
+		}
+	}			
+});
+
