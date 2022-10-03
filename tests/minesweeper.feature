@@ -52,10 +52,10 @@ Then all the cells in the minefield should be "hidden"
 Scenario: The user believes that there is a mine in a cell -> Tagging a cell as mined
 When the user tags the "1-1" cell as "mined"
 Then the cell "1-1" should show the "mined" symbol
-
+@todo
 Scenario: the user can't predict the value of a cell -> tagging a cell as questionable
 When the user tags the "1-1" cell as "questionable"
-Then the cell "1-1" should show "question" symbol
+Then the cell "1-1" should show the "question" symbol
 
 Scenario Outline: Tagging cells -> Mines counter
 Given the user tags the  "1-1" cell  as <tag>

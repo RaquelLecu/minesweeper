@@ -37,15 +37,20 @@ Then('all the cells in the minefield should be {string}', async(string) => {
 
 When('the user tags the {string} cell as {string}', async(string, string2) => {
 	let cellId = 'data-testid='+string.split("-")[0]+"-"+string.split("-")[1];
-	await page.click(cellId, {button: 'right'});
-	
+	if(string2 == "mined") await page.click(cellId, {button: 'right'});
+	if(string2 == "questionable"){
+		await page.click(cellId, {button: 'right'});
+		await page.click(cellId, {button: 'right'});
+	} 
 	let cell =  await page.locator('data-testid='+string.split("-")[0]+"-"+string.split("-")[1]).innerText();
 	if(string2 == "mined") string2 = "\u{1F6A9}";
+	if(string2 == "questionable") string2 = "\u{2753}";
 	expect(cell).toBe(string2);
 });
 
   Then('the cell {string} should show the {string} symbol', async(string, string2) => {
 	let cell =  await page.locator('data-testid='+string.split("-")[0]+"-"+string.split("-")[1]).innerText();
 	if(string2 == "mined") string2 = "\u{1F6A9}";
+	if(string2 == "question") string2 = "\u{2753}";
 	expect(cell).toBe(string2);
 });
