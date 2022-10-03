@@ -48,9 +48,34 @@ When('the user tags the {string} cell as {string}', async(string, string2) => {
 	expect(cell).toBe(string2);
 });
 
-  Then('the cell {string} should show the {string} symbol', async(string, string2) => {
+Then('the cell {string} should show the {string} symbol', async(string, string2) => {
 	let cell =  await page.locator('data-testid='+string.split("-")[0]+"-"+string.split("-")[1]).innerText();
 	if(string2 == "mined") string2 = "\u{1F6A9}";
 	if(string2 == "question") string2 = "\u{2753}";
 	expect(cell).toBe(string2);
+});
+
+Given('the user tags the  {string} cell  as {string}', async (string, string2) => {
+	let cellId = 'data-testid='+string.split("-")[0]+"-"+string.split("-")[1];
+	if(string2 == "flag") await page.click(cellId, {button: 'right'});
+	if(string2 == "question"){
+		await page.click(cellId, {button: 'right'});
+		await page.click(cellId, {button: 'right'});
+	}	
+});
+
+Given('the mines counter display show {int} mines', async (int) => {
+	const displayMines = await page.locator('data-testid=displayMines').innerText();
+	expect(displayMines).toBe(int.toString());
+});
+
+
+When('the user put the {string} tag on a {string} cell', async (string, string2) => {
+	let cellId = 'data-testid='+string2.split("-")[0]+"-"+string2.split("-")[1];
+	await page.click(cellId, {button: 'right'});
+});
+
+Then('the mines counter display should be {int} mines', async (int) => {
+	const displayMines = await page.locator('data-testid=displayMines').innerText();
+	expect(displayMines).toBe(int.toString());
 });
