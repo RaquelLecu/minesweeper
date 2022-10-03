@@ -45,17 +45,17 @@ Then the time display should be: 0
 
 Scenario: Default display screen -> Default face status
 Then the button face should be "happy"
-@todo
+
 Scenario: Default display screen -> All the cell must be hidden
 Then all the cells in the minefield should be "hidden"
-
+@todo
 Scenario: The user believes that there is a mine in a cell -> Tagging a cell as mined
-When the user tags the "1-1" cell as mined
-Then the cell "1-1" should show the mined symbol
+When the user tags the "1-1" cell as "mined"
+Then the cell "1-1" should show the "mined" symbol
 
 Scenario: the user can't predict the value of a cell -> tagging a cell as questionable
-When the user tags the "1-1" cell as questionable
-Then the cell "1-1" should show question symbol
+When the user tags the "1-1" cell as "questionable"
+Then the cell "1-1" should show "question" symbol
 
 Scenario Outline: Tagging cells -> Mines counter
 Given the user tags the  "1-1" cell  as <tag>
