@@ -17,6 +17,11 @@ function getParametersUrlView(){
     }
 }
 
+function getMinefieldView(file, column){
+    getMinefieldFileView(file);
+    getMinefieldColumnView(column);
+}
+
 function getMinefieldFileView(file){
     const TABLE = document.querySelector('table');
     TABLE.innerHTML = "";
@@ -36,7 +41,7 @@ function getMinefieldColumnView(column){
             let cell = document.createElement('td');
             cell.classList.add("hidden");
             cell.setAttribute("id", (i+"-"+j));
-            cell.setAttribute("data-testid", (i+"-"+j));
+            cell.setAttribute("data-testid", ((i+1)+"-"+(j+1)));
             ELEMENTSFILE[i].appendChild(cell);
         }
     }
@@ -45,4 +50,10 @@ function getMinefieldColumnView(column){
 function setDisplayMinesView(mines){
     const DISPLAYMINES = document.querySelector('#mines');
     DISPLAYMINES.innerHTML = mines;
+}
+
+function setTagView(cell,tag){
+    if(tag == "blank") cell.innerHTML = '';
+    else if(tag == "flag") cell.innerHTML = '&#128681;';
+    else if(tag == "question") cell.innerHTML = '&#10067;';
 }

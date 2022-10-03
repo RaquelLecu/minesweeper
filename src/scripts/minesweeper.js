@@ -1,10 +1,17 @@
 const PARAMETERS = getParametersUrlView();
-
 getMinefield();
+const CELLS = document.querySelectorAll('td');
+
+CELLS.forEach(cell => cell.addEventListener('contextmenu', event => {
+    event.preventDefault();
+    setTag(event.target);
+},true));
 
 function getMinefield(){
-    if(PARAMETERS === undefined) getMinefieldData(8,8,10);
-    else{
+    if(PARAMETERS === undefined){
+        getMinefieldData(8,8,10);
+        getMinefieldView(8,8);
+    }else{
         let files = parseInt(PARAMETERS[0]);
         let columns = parseInt(PARAMETERS[1])
         if(files == 1) getMockDemo(files,columns,1);
@@ -17,7 +24,31 @@ function getMinefield(){
 
 function getMockDemo(file,column,mine){
     getMinefieldData(file,column,mine);
-    getMinefieldFileView(file);
-    getMinefieldColumnView(column);
+    getMinefieldView(file, column);
     setDisplayMinesView(mine);
+}
+
+function setTag(cell){
+    let coordinateCell = getCoordinateCell(cell);
+    let oldTag = cell.innerText;
+    let newTag;
+
+    if (oldTag == ""){
+        setNumMineData(-1);
+        newTag = 'flag';
+    }else if(oldTag == "\u{1F6A9}"){
+        setNumMineData(1);
+        newTag = "question"
+    }else if(oldTag == "\u{2753}") newTag = "blank";
+    setTagData(coordinateCell[0], coordinateCell[1], newTag);
+    setTagView(cell, newTag);
+    setDisplayMinesView(numMinesData);
+}
+
+function getCoordinateCell(cell){
+    let idCell = cell.getAttribute("id");
+    let height = parseInt(idCell.split("-")[0]);
+    let width = parseInt(idCell.split("-")[1]);
+    let coordinate = [height, width];
+    return coordinate;
 }
