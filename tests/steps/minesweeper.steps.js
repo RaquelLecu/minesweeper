@@ -79,3 +79,23 @@ Then('the mines counter display should be {int} mines', async (int) => {
 	const displayMines = await page.locator('data-testid=displayMines').innerText();
 	expect(displayMines).toBe(int.toString());
 });
+
+Given('tags as mined the {string} cell', async (string) => {
+	let cellId = 'data-testid='+string.split("-")[0]+"-"+string.split("-")[1];
+	await page.click(cellId, {button: 'right'});
+});
+
+Given('the mine counter is: {int}', async (int) => {
+	const displayMines = await page.locator('data-testid=displayMines').innerText();
+	expect(displayMines).toBe(int.toString());
+});
+	
+When('the user tags as mined the {string} cell', async (string) => {
+	let cellId = 'data-testid='+string.split("-")[0]+"-"+string.split("-")[1];
+	await page.click(cellId, {button: 'right'});	
+});
+
+Then('the mines counter should be: {int}', async (int) => {
+	const displayMines = await page.locator('data-testid=displayMines').innerText();
+	expect(displayMines).toBe(int.toString());
+});
