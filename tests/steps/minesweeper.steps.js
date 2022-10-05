@@ -6,27 +6,27 @@ Given('a user opens the app', async() => {
 	await page.goto(url);
 });
 
-Given('the user load the test board: {string}', async(string) => {
+Given('the user load the test board: {string}', async (string) => {
 	await page.goto(url+'?mockDemo='+string);
 });
 
-Then('in the mines counter display should be {int}', async(int) => {
+Then('in the mines counter display should be {int}', async (int) => {
 	const displayMines = await page.locator('data-testid=displayMines').innerText();
 	expect(displayMines).toBe(int.toString());
 });
 
-Then('the time display should be: {int}', async(int) => {
+Then('the time display should be: {int}', async (int) => {
 	const displayTime = await page.locator('data-testid=displayTime').innerText();
 	expect(displayTime).toBe(int.toString());
 });
 
-Then('the button face should be {string}', async(string) => {
-	if(string == "happy") string = "\u{1F642}";
+Then('the button face should be {string}', async (string) => {
 	let face = await page.locator('data-testid=face').innerText();
+	if(string == "happy") string = "\u{1F642}";
 	expect(face).toBe(string);
 });
 
-Then('all the cells in the minefield should be {string}', async(string) => { 
+Then('all the cells in the minefield should be {string}', async (string) => { 
 	for(let i=1; i<9; i++){
 		for(let j=1; j<9; j++){
 			let cell =  await page.locator('data-testid='+i+"-"+j);
@@ -35,7 +35,7 @@ Then('all the cells in the minefield should be {string}', async(string) => {
 	}			
 });
 
-When('the user tags the {string} cell as {string}', async(string, string2) => {
+When('the user tags the {string} cell as {string}', async (string, string2) => {
 	let cellId = 'data-testid='+string.split("-")[0]+"-"+string.split("-")[1];
 	if(string2 == "mined") await page.click(cellId, {button: 'right'});
 	if(string2 == "questionable"){
@@ -48,7 +48,7 @@ When('the user tags the {string} cell as {string}', async(string, string2) => {
 	expect(cell).toBe(string2);
 });
 
-Then('the cell {string} should show the {string} symbol', async(string, string2) => {
+Then('the cell {string} should show the {string} symbol', async (string, string2) => {
 	let cell =  await page.locator('data-testid='+string.split("-")[0]+"-"+string.split("-")[1]).innerText();
 	if(string2 == "mined") string2 = "\u{1F6A9}";
 	if(string2 == "question") string2 = "\u{2753}";
@@ -98,4 +98,29 @@ When('the user tags as mined the {string} cell', async (string) => {
 Then('the mines counter should be: {int}', async (int) => {
 	const displayMines = await page.locator('data-testid=displayMines').innerText();
 	expect(displayMines).toBe(int.toString());
+});
+
+When('the user exposes the {string} cell', async (string) => {
+	await page.click('data-testid='+string);
+});
+
+Then('the board should display the next information:', async (docString) => {
+	//U+2738
+	let cells = '';
+	let height = 1;
+	let width = 0;
+	for(i=0; i<docString.length;i++){
+		if(docString[i] == '*' || docString[i] == 'x') cells = cells+docString[i];
+		if(docString[i] == '\n') height++;
+	}
+	width = (docString.length - height)/height;
+	for(let i=1; i<height; i++){
+		for(let j=1; j<width; j++){
+			let cell =  await page.locator('data-testid='+i+"-"+j);
+			if(cells.substring[i+j] == 'x')
+				await expect(cell).toHaveAttribute('class', 'hidden');
+			else if(cells.substring[i+j] == '*')
+				await expect(cell).toBe('\u{2738}');
+		}
+	}
 });

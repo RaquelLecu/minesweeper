@@ -7,23 +7,29 @@ CELLS.forEach(cell => cell.addEventListener('contextmenu', event => {
     setTag(event.target);
 },true));
 
+CELLS.forEach(cell => cell.addEventListener('click', event => {
+    setStatus(event.target);
+}));
+
 function getMinefield(){
     if(PARAMETERS === undefined){
         getMinefieldData(8,8,10);
+        setRandomValue();
         getMinefieldView(8,8);
     }else{
         let files = parseInt(PARAMETERS[0]);
-        let columns = parseInt(PARAMETERS[1])
+        let columns = parseInt(PARAMETERS[1]);
         if(files == 1) getMockDemo(files,columns,1);
         else if(files == 3) getMockDemo(files,columns,3);
         else if(files == 4) getMockDemo(files,columns,2);
         else if(files == 8) getMockDemo(files,columns,10);
-        else alert("ups... algo salió mal :(");    
+        else alert("ups... algo salió mal :("); 
     }
 }
 
 function getMockDemo(file,column,mine){
     getMinefieldData(file,column,mine);
+    getMockMinesData();
     getMinefieldView(file, column);
     setDisplayMinesView(mine);
 }
@@ -32,6 +38,7 @@ function setTag(cell){
     let coordinateCell = getCoordinateCell(cell);
     let oldTag = cell.innerText;
     let newTag;
+    let cellData;
 
     if (oldTag == ""){
         setNumMineData(-1);
@@ -40,9 +47,11 @@ function setTag(cell){
         setNumMineData(1);
         newTag = "question"
     }else if(oldTag == "\u{2753}") newTag = "blank";
-    setTagData(coordinateCell[0], coordinateCell[1], newTag);
-    setTagView(cell, newTag);
-    setDisplayMinesView(numMinesData);
+    cellData = setTagData(coordinateCell[0], coordinateCell[1], newTag);
+    if(cellData['status'] == 'hidden'){
+        setTagView(cell, cellData['tag']);
+        setDisplayMinesView(numMinesData);
+    }
 }
 
 function getCoordinateCell(cell){
@@ -51,4 +60,11 @@ function getCoordinateCell(cell){
     let width = parseInt(idCell.split("-")[1]);
     let coordinate = [height, width];
     return coordinate;
+}
+
+function setStatus(cell){
+    let cellData;
+    let coordinateCell = getCoordinateCell(cell);
+    cellData = setStatusData(coordinateCell[0],coordinateCell[1],"exposed");
+    setStatusView(cell, cellData);
 }

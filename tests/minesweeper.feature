@@ -68,7 +68,7 @@ Examples:
 |    "blank"|       10|     "flag"|          9|
 |     "flag"|        9| "question"|         10|
 | "question"|       10|    "blank"|         10|
-@todo
+
 @mockDemo=1x2
 Scenario: Tagging mines incorrectly as mined -> Mine counter is negative
 Given the user load the test board: "1x2"
@@ -76,7 +76,7 @@ And tags as mined the "1-1" cell
 And the mine counter is: 0
 When the user tags as mined the "1-2" cell
 Then the mines counter should be: -1
-
+@todo
 @mockDemo=3x3
 Scenario Outline: Exposing a cell with mine -> all the mines will be exposed
 Given the user load the test board: "3x3"

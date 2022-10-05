@@ -57,3 +57,34 @@ function setTagView(cell,tag){
     else if(tag == "flag") cell.innerHTML = '&#128681;';
     else if(tag == "question") cell.innerHTML = '&#10067;';
 }
+
+function setStatusView(cell, cellData){
+    cell.setAttribute('class',cellData['status']);
+    setValueView(cellData);
+}
+
+function setValueView(cellData){
+    if(cellData['value'] == 'mine') lostGameView(cellsMinefieldData);
+}
+
+function lostGameView(minefieldData){
+    showAllMines(minefieldData);
+}
+
+function showAllMines(minefieldData){
+    let cellView;
+    let cellNum;
+    let allCell = document.querySelectorAll('td');
+
+    for(let i=0; i<minefieldData.length;i++){
+        for(let j=0; j<minefieldData.length;j++){
+            if(minefieldData[i][j]['value'] == 'mine'){
+                cellNum = ((minefieldData.length*i)+j);
+                cellView = allCell[cellNum];
+                cellView.setAttribute('class',minefieldData[i][j]['status']);
+                cellView.innerHTML = '&#10040;';
+                cellView.style.backgroundColor = "red";
+            }
+        }
+    }
+}
