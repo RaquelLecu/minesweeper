@@ -49,7 +49,7 @@ function setNumMineData(numToAdd){
     numMinesData = numMinesData + numToAdd;
 }
 
-function setRandomValue(){
+function getMinesValueData(){
     for(let r=0; r<numMinesData; r++){
         let y = Math.floor(Math.random() * heightMinefield);
         let x = Math.floor(Math.random() * widthMinefield);
@@ -80,11 +80,37 @@ function getMockMinesData(){
 }
 
 function lostGameData(){
-    for(let i=0; i<cellsMinefieldData.length;i++){
-        for(let j=0; j<cellsMinefieldData.length;j++){
+    for(let i=0; i<heightMinefield;i++){
+        for(let j=0; j<widthMinefield;j++){
             if(cellsMinefieldData[i][j]['value'] == 'mine'){
                 cellsMinefieldData[i][j]['status'] = 'exposed';
             }
         }
     }
+}
+
+function getNumberValueData(){
+    for(let i=0; i<heightMinefield;i++){
+        for(let j=0; j<widthMinefield;j++){
+            let mine = 0;
+            if(cellsMinefieldData[i][j]['value'] == 'blank'){
+                mine = mine + getNumMinesFileAround(i,j);
+                if(i>0){
+                    mine = mine + getNumMinesFileAround((i-1),j);
+                } 
+                if(i<(heightMinefield-1)){
+                    mine = mine + getNumMinesFileAround((i+1),j)
+                }
+            }
+            if(mine>0) cellsMinefieldData[i][j]['value'] = mine;
+        }
+    }
+}
+
+function getNumMinesFileAround(file,column){
+    let mine = 0;
+    if(column>0 && cellsMinefieldData[(file)][column-1]['value'] == 'mine') mine++;
+    if(cellsMinefieldData[(file)][column]['value'] == 'mine') mine++;
+    if(column<(widthMinefield-1) && cellsMinefieldData[file][column+1]['value'] == 'mine') mine++;
+    return mine;
 }

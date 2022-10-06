@@ -28,7 +28,7 @@ Feature: Minesweeper
 
 Background: 
 Given a user opens the app
-
+@done
 Scenario Outline: Default display screen -> Default Mines Counter value
 Given the user load the test board: "<mockDemo>"
 Then in the mines counter display should be <counter>
@@ -39,24 +39,24 @@ Examples:
 |       1x2|        1|
 |       4x5|        2|
 |       8x8|       10|
-
+@done
 Scenario: Default display screen -> Default timer value
 Then the time display should be: 0
-
+@done
 Scenario: Default display screen -> Default face status
 Then the button face should be "happy"
-
+@done
 Scenario: Default display screen -> All the cell must be hidden
 Then all the cells in the minefield should be "hidden"
-
+@done
 Scenario: The user believes that there is a mine in a cell -> Tagging a cell as mined
 When the user tags the "1-1" cell as "mined"
 Then the cell "1-1" should show the "mined" symbol
-
+@done
 Scenario: the user can't predict the value of a cell -> tagging a cell as questionable
 When the user tags the "1-1" cell as "questionable"
 Then the cell "1-1" should show the "question" symbol
-
+@done
 Scenario Outline: Tagging cells -> Mines counter
 Given the user tags the  "1-1" cell  as <tag>
 And the mines counter display show <mines> mines
@@ -68,7 +68,7 @@ Examples:
 |    "blank"|       10|     "flag"|          9|
 |     "flag"|        9| "question"|         10|
 | "question"|       10|    "blank"|         10|
-
+@done
 @mockDemo=1x2
 Scenario: Tagging mines incorrectly as mined -> Mine counter is negative
 Given the user load the test board: "1x2"
@@ -76,7 +76,7 @@ And tags as mined the "1-1" cell
 And the mine counter is: 0
 When the user tags as mined the "1-2" cell
 Then the mines counter should be: -1
-@todo
+@done
 @mockDemo=3x3
 Scenario Outline: Exposing a cell with mine -> all the mines will be exposed
 Given the user load the test board: "3x3"
@@ -87,12 +87,12 @@ Then the board should display the next information:
 |x|x|x|
 |x|*|*| 
 """
-
+@todo @done
 @mockDemo=3x3
 Scenario Outline: Exposing a cell without mine and with adyacent mines -> counting number of adjacent mines
 Given the user load the test board: "3x3"
-When the user exposes the <cell> cell
-Then the <cell> cell should show value <value>
+When the user exposes the "<cell>" cell
+Then the "<cell>" cell should show value <value>
 
 Examples:
 | cell | value |
@@ -138,7 +138,7 @@ Then "1-1" cell have tag "flag"
 @mockDemo=1x2
 Scenario Outline: lose or win the game -> Changing the button face 
 Given the user load the test board: "1x2"
-When the user presses the <cell> cell
+When the user presses the "<cell>" cell
 Then the face button should be <face>
 
 Examples:

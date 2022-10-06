@@ -1,7 +1,8 @@
 function getParametersUrlView(){
-    let parametersData = [];
+    let parametersData;
     const URL = document.location.href;
     if(URL.indexOf('?')>0){
+        parametersData = [];
         let parametersUrl = URL.split('?')[1];
         let parameters = parametersUrl.split('&');
         let parameterSize = parameters[0].split('=')[1];        
@@ -13,8 +14,8 @@ function getParametersUrlView(){
             parameterStatus = parameters[1].split('=')[1];
             parametersData.push(parameterStatus);
         }
-        return parametersData;
     }
+    return parametersData;
 }
 
 function getMinefieldView(file, column){
@@ -60,11 +61,12 @@ function setTagView(cell,tag){
 
 function setStatusView(cell, cellData){
     cell.setAttribute('class',cellData['status']);
-    setValueView(cellData);
+    setValueView(cell, cellData);
 }
 
-function setValueView(cellData){
+function setValueView(cell, cellData){
     if(cellData['value'] == 'mine') lostGameView(cellsMinefieldData);
+    else if(cellData['value'] != 'blank') cell.innerHTML = cellData['value']; 
 }
 
 function lostGameView(minefieldData){

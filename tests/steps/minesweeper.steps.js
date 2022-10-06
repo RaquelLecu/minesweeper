@@ -105,22 +105,27 @@ When('the user exposes the {string} cell', async (string) => {
 });
 
 Then('the board should display the next information:', async (docString) => {
-	//U+2738
 	let cells = '';
 	let height = 1;
 	let width = 0;
 	for(i=0; i<docString.length;i++){
-		if(docString[i] == '*' || docString[i] == 'x') cells = cells+docString[i];
 		if(docString[i] == '\n') height++;
+		else if(docString[i] != '|') cells = cells+docString[i];
 	}
-	width = (docString.length - height)/height;
+	width = (cells.length/height);
 	for(let i=1; i<height; i++){
 		for(let j=1; j<width; j++){
 			let cell =  await page.locator('data-testid='+i+"-"+j);
-			if(cells.substring[i+j] == 'x')
+			if(cells.substring((j+i-2),(j+i-1)) == 'x')
 				await expect(cell).toHaveAttribute('class', 'hidden');
-			else if(cells.substring[i+j] == '*')
-				await expect(cell).toBe('\u{2738}');
+			else if(cells.substring((j+i-2),(j+i-1)) == '*')
+				expect(await cell.innerText()).toBe('\u{2738}');
 		}
 	}
+});
+
+Then('the {string} cell should show value {int}', async (string, int) => {        
+	let cellId = 'data-testid='+string.split("-")[0]+"-"+string.split("-")[1];
+	let cell =  await page.locator(cellId).innerText();
+	expect(cell).toBe(int.toString());
 });

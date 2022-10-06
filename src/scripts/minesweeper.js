@@ -14,7 +14,8 @@ CELLS.forEach(cell => cell.addEventListener('click', event => {
 function getMinefield(){
     if(PARAMETERS === undefined){
         getMinefieldData(8,8,10);
-        setRandomValue();
+        getMinesValueData();
+        getNumberValueData();
         getMinefieldView(8,8);
     }else{
         let files = parseInt(PARAMETERS[0]);
@@ -30,6 +31,7 @@ function getMinefield(){
 function getMockDemo(file,column,mine){
     getMinefieldData(file,column,mine);
     getMockMinesData();
+    getNumberValueData();
     getMinefieldView(file, column);
     setDisplayMinesView(mine);
 }
