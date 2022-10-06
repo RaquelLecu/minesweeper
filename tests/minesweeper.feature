@@ -87,7 +87,7 @@ Then the board should display the next information:
 |x|x|x|
 |x|*|*| 
 """
-@todo @done
+@done
 @mockDemo=3x3
 Scenario Outline: Exposing a cell without mine and with adyacent mines -> counting number of adjacent mines
 Given the user load the test board: "3x3"
@@ -99,7 +99,7 @@ Examples:
 |   1-2|      1|
 |   2-1|      2|
 |   2-2|      3|
-
+@todo 
 @mockDemo=3x3
 Scenario: Revealing a cell without mine and no adyacent mines -> The cell is empty
 Given the user load the test board: "3x3"

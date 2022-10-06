@@ -129,3 +129,9 @@ Then('the {string} cell should show value {int}', async (string, int) => {
 	let cell =  await page.locator(cellId).innerText();
 	expect(cell).toBe(int.toString());
 });
+
+Then('the cell {string} should be empty', async (string) => {
+	let cellId = 'data-testid='+string.split("-")[0]+"-"+string.split("-")[1];
+	let cell =  await page.locator(cellId).innerText();
+	expect(cell).toBe('');
+});
