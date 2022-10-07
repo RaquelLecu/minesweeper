@@ -99,24 +99,24 @@ Examples:
 |   1-2|      1|
 |   2-1|      2|
 |   2-2|      3|
-@todo 
+@done 
 @mockDemo=3x3
 Scenario: Revealing a cell without mine and no adyacent mines -> The cell is empty
 Given the user load the test board: "3x3"
 When the user exposes the "1-3" cell
 Then the cell "1-3" should be empty
-
+@todo
 @mockDemo=3x3
 Scenario: exposing an empty cell -> Reveal adyacent cells
 Given the user load the test board: "3x3"
 When the user exposes the "1-3" cell
 Then the board should display the next information:
 """
-|X|1| |
+|x|1| |
 |x|3|2|
-|x|X|X| 
+|x|x|x| 
 """
-
+@todo
 @mockDemo=4x5
 Scenario: A cell exposed by a neighbour -> If the cell is empty -> Reveal adyacent cells
 Given the user load the test board: "4x5"

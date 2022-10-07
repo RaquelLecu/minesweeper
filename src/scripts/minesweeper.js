@@ -67,6 +67,6 @@ function getCoordinateCell(cell){
 function setStatus(cell){
     let cellData;
     let coordinateCell = getCoordinateCell(cell);
-    cellData = setStatusData(coordinateCell[0],coordinateCell[1],"exposed");
+    cellData = setStatusData(coordinateCell[0],coordinateCell[1]);
     setStatusView(cell, cellData);
 }

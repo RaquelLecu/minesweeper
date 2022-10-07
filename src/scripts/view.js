@@ -29,28 +29,28 @@ function getMinefieldFileView(file){
     
     for(file; file>0; file--){
         let row = document.createElement('tr');
-        row.classList.add("row");
+        row.classList.add("row"+file);
         TABLE.appendChild(row);
     }
 }
 
 function getMinefieldColumnView(column){
-    const ELEMENTSFILE = document.querySelectorAll('tr');
+    const ELEMENTS_FILE = document.querySelectorAll('tr');
     
-    for(let i=0; i<ELEMENTSFILE.length; i++){
+    for(let i=0; i<ELEMENTS_FILE.length; i++){
         for(let j=0; j<column; j++){
             let cell = document.createElement('td');
             cell.classList.add("hidden");
             cell.setAttribute("id", (i+"-"+j));
             cell.setAttribute("data-testid", ((i+1)+"-"+(j+1)));
-            ELEMENTSFILE[i].appendChild(cell);
+            ELEMENTS_FILE[i].appendChild(cell);
         }
     }
 }
 
 function setDisplayMinesView(mines){
-    const DISPLAYMINES = document.querySelector('#mines');
-    DISPLAYMINES.innerHTML = mines;
+    const DISPLAY_MINES = document.querySelector('#mines');
+    DISPLAY_MINES.innerHTML = mines;
 }
 
 function setTagView(cell,tag){
@@ -61,12 +61,14 @@ function setTagView(cell,tag){
 
 function setStatusView(cell, cellData){
     cell.setAttribute('class',cellData['status']);
-    setValueView(cell, cellData);
+    if(cellData['value'] == 'blank') setStatusNeighborView(cellsMinefieldData);
+    else setValueView(cell, cellData);
 }
 
 function setValueView(cell, cellData){
     if(cellData['value'] == 'mine') lostGameView(cellsMinefieldData);
-    else if(cellData['value'] != 'blank') cell.innerHTML = cellData['value']; 
+    else if(cellData['value'] != 'blank') cell.innerHTML = cellData['value'];
+    else if(cellData['value'] == 'blank') cell.innerHTML = '';
 }
 
 function lostGameView(minefieldData){
@@ -74,19 +76,32 @@ function lostGameView(minefieldData){
 }
 
 function showAllMines(minefieldData){
-    let cellView;
-    let cellNum;
+    console.log(minefieldData)
     let allCell = document.querySelectorAll('td');
-
+    const W = widthMinefieldData;
     for(let i=0; i<minefieldData.length;i++){
-        for(let j=0; j<minefieldData.length;j++){
+        for(let j=0; j<minefieldData[i].length;j++){
             if(minefieldData[i][j]['value'] == 'mine'){
-                cellNum = ((minefieldData.length*i)+j);
-                cellView = allCell[cellNum];
-                cellView.setAttribute('class',minefieldData[i][j]['status']);
-                cellView.innerHTML = '&#10040;';
-                cellView.style.backgroundColor = "red";
+                console.log(allCell[W*i+j]);
+                allCell[W*i+j].setAttribute('class',minefieldData[i][j]['status']);
+                allCell[W*i+j].innerHTML = '&#10040;';
+                allCell[W*i+j].style.backgroundColor = "red";
             }
         }
     }
+}
+
+function setStatusNeighborView(minefieldData){
+    let allCell = document.querySelectorAll('td');
+    const W = widthMinefieldData;
+    for(let i=0; i<minefieldData.length;i++){
+        for(let j=0; j<minefieldData[i].length;j++){
+            if(minefieldData[i][j]['status'] == 'exposed'){
+                console.log(allCell[W*i+j]);
+                allCell[W*i+j].setAttribute('class',minefieldData[i][j]['status']);
+                setValueView(allCell[W*i+j],minefieldData[i][j]);
+            }
+        }
+    }
+
 }

@@ -105,21 +105,31 @@ When('the user exposes the {string} cell', async (string) => {
 });
 
 Then('the board should display the next information:', async (docString) => {
-	let cells = '';
+	let cellsDoc = '';
 	let height = 1;
 	let width = 0;
+	let count = 0;
 	for(i=0; i<docString.length;i++){
 		if(docString[i] == '\n') height++;
-		else if(docString[i] != '|') cells = cells+docString[i];
+		else if(docString[i] != '|') cellsDoc = cellsDoc+docString[i];
 	}
-	width = (cells.length/height);
-	for(let i=1; i<height; i++){
-		for(let j=1; j<width; j++){
+	width = (cellsDoc.length/height);
+	for(let i=1; i<=height; i++){
+		for(let j=1; j<=width; j++){
 			let cell =  await page.locator('data-testid='+i+"-"+j);
-			if(cells.substring((j+i-2),(j+i-1)) == 'x')
+			if(cellsDoc.substring(count,(count+1)) == 'x')
 				await expect(cell).toHaveAttribute('class', 'hidden');
-			else if(cells.substring((j+i-2),(j+i-1)) == '*')
+			else if(cellsDoc.substring(count,(count+1)) == '*')
 				expect(await cell.innerText()).toBe('\u{2738}');
+			else if (cellsDoc.substring(count,(count+1)) == ' ')
+				expect(await cell.innerText()).toBe("");
+			else if (cellsDoc.substring(count,(count+1)) == '1')
+				expect(await cell.innerText()).toBe('1');
+			else if (cellsDoc.substring(count,(count+1)) == '2')
+				expect(await cell.innerText()).toBe('2');
+			else if (cellsDoc.substring(count,(count+1)) == '3')
+				expect(await cell.innerText()).toBe('3');
+			count++;
 		}
 	}
 });
