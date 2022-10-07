@@ -130,3 +130,24 @@ function setStatusFilerAround(file, column){
     if(column<(widthMinefieldData-1) && cellsMinefieldData[file][column+1]['status'] == 'hidden') 
         setStatusData(file,(column+1));
 }
+
+function isWinData(){
+    for(let i=0; i<heightMinefieldData;i++){
+        for(let j=0; j<widthMinefieldData;j++){
+            if(cellsMinefieldData[i][j]['value'] != 'mine' && cellsMinefieldData[i][j]['status'] == 'hidden'){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+function winGameData(){
+    for(let i=0; i<heightMinefieldData;i++){
+        for(let j=0; j<widthMinefieldData;j++){
+            if(cellsMinefieldData[i][j]['value'] == 'mine'){
+                cellsMinefieldData[i][j]['tag'] == 'flag';
+            }
+        }
+    }
+}

@@ -69,4 +69,9 @@ function setStatus(cell){
     let coordinateCell = getCoordinateCell(cell);
     cellData = setStatusData(coordinateCell[0],coordinateCell[1]);
     setStatusView(cell, cellData);
+    let isWin = isWinData();
+    if(isWin){
+        winGameData();
+        winGameView(cellsMinefieldData);    
+    }
 }

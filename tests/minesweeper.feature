@@ -105,7 +105,7 @@ Scenario: Revealing a cell without mine and no adyacent mines -> The cell is emp
 Given the user load the test board: "3x3"
 When the user exposes the "1-3" cell
 Then the cell "1-3" should be empty
-@todo
+@done
 @mockDemo=3x3
 Scenario: exposing an empty cell -> Reveal adyacent cells
 Given the user load the test board: "3x3"
@@ -116,7 +116,7 @@ Then the board should display the next information:
 |x|3|2|
 |x|x|x| 
 """
-@todo
+@done
 @mockDemo=4x5
 Scenario: A cell exposed by a neighbour -> If the cell is empty -> Reveal adyacent cells
 Given the user load the test board: "4x5"
@@ -128,12 +128,12 @@ Then the board should display the next information:
 |x|2|1|1| |
 |x|x|x|1| |
 """
-
+@todo
 @mockDemo=1x2
 Scenario: Win the game -> tagger all cells mined
 Given the user load the test board: "1x2"
 When the user exposes the "1-2" cell
-Then "1-1" cell have tag "flag"
+Then "1-1" cell should shows the "flag" tag
 
 @mockDemo=1x2
 Scenario Outline: lose or win the game -> Changing the button face 
@@ -169,13 +169,13 @@ Then the cell should be "exposed"
 Scenario Outline: Tagging a cell with mouse
 Given "1-1" cell shows the <tag> tag
 When the user presses the right mouse button on the "1-1" cell
-Then "1-1" cell should shows the <tag> tag
+Then "1-1" cell should shows the "<tag>" tag
 
 Examples:
 |    tag    |    tag    |
-|    "blank"|     "flag"|
-|     "flag"| "question"|
-| "question"|    "blank"|
+|      blank|       flag|
+|       flag|   question|
+|   question|      blank|
 
 @mockDemo=8x8&status=exposed @manual
 Scenario: adding random mines and numbers values (perform minimum 5 times)

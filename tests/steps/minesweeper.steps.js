@@ -145,3 +145,10 @@ Then('the cell {string} should be empty', async (string) => {
 	let cell =  await page.locator(cellId).innerText();
 	expect(cell).toBe('');
 });
+
+Then('{string} cell should shows the {string} tag', async (string, string2) =>{
+	if (string2 == "flag") string2 = '\u{1F6A9}';
+	let cellId = 'data-testid='+string.split("-")[0]+"-"+string.split("-")[1];
+	let cell =  await page.locator(cellId).innerText();
+	expect(cell).toBe(string2);
+});

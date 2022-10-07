@@ -76,13 +76,11 @@ function lostGameView(minefieldData){
 }
 
 function showAllMines(minefieldData){
-    console.log(minefieldData)
     let allCell = document.querySelectorAll('td');
     const W = widthMinefieldData;
     for(let i=0; i<minefieldData.length;i++){
         for(let j=0; j<minefieldData[i].length;j++){
             if(minefieldData[i][j]['value'] == 'mine'){
-                console.log(allCell[W*i+j]);
                 allCell[W*i+j].setAttribute('class',minefieldData[i][j]['status']);
                 allCell[W*i+j].innerHTML = '&#10040;';
                 allCell[W*i+j].style.backgroundColor = "red";
@@ -97,11 +95,22 @@ function setStatusNeighborView(minefieldData){
     for(let i=0; i<minefieldData.length;i++){
         for(let j=0; j<minefieldData[i].length;j++){
             if(minefieldData[i][j]['status'] == 'exposed'){
-                console.log(allCell[W*i+j]);
                 allCell[W*i+j].setAttribute('class',minefieldData[i][j]['status']);
                 setValueView(allCell[W*i+j],minefieldData[i][j]);
             }
         }
     }
 
+}
+
+function winGameView(minefieldData){
+    let allCell = document.querySelectorAll('td');
+    const W = widthMinefieldData;
+    for(let i=0; i<minefieldData.length;i++){
+        for(let j=0; j<minefieldData[i].length;j++){
+            if(minefieldData[i][j]['status'] == 'hidden'){
+                setTagView(allCell[W*i+j],'flag');
+            }
+        }
+    }
 }
