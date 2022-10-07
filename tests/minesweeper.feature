@@ -128,17 +128,17 @@ Then the board should display the next information:
 |x|2|1|1| |
 |x|x|x|1| |
 """
-@todo
+@done
 @mockDemo=1x2
 Scenario: Win the game -> tagger all cells mined
 Given the user load the test board: "1x2"
 When the user exposes the "1-2" cell
 Then "1-1" cell should shows the "flag" tag
-
+@todo
 @mockDemo=1x2
 Scenario Outline: lose or win the game -> Changing the button face 
 Given the user load the test board: "1x2"
-When the user presses the "<cell>" cell
+When the user exposes the "<cell>" cell
 Then the face button should be <face>
 
 Examples:

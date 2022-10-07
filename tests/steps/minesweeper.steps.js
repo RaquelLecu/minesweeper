@@ -152,3 +152,10 @@ Then('{string} cell should shows the {string} tag', async (string, string2) =>{
 	let cell =  await page.locator(cellId).innerText();
 	expect(cell).toBe(string2);
 });
+
+Then('the face button should be {string}', async (string) => {       
+	let face = await page.locator('data-testid=face').innerText();
+	if(string == "sad") string = "\u{1F61F}";
+	if(string == "cool") string = "\u{1F60E}";
+	expect(face).toBe(string);
+});

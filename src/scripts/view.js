@@ -73,6 +73,8 @@ function setValueView(cell, cellData){
 
 function lostGameView(minefieldData){
     showAllMines(minefieldData);
+    let face = document.querySelector('#face');
+    face.innerHTML = '&#128543;';
 }
 
 function showAllMines(minefieldData){
@@ -105,6 +107,7 @@ function setStatusNeighborView(minefieldData){
 
 function winGameView(minefieldData){
     let allCell = document.querySelectorAll('td');
+    let face = document.querySelector('#face');
     const W = widthMinefieldData;
     for(let i=0; i<minefieldData.length;i++){
         for(let j=0; j<minefieldData[i].length;j++){
@@ -113,4 +116,5 @@ function winGameView(minefieldData){
             }
         }
     }
+    face.innerHTML = '&#128526;';
 }
