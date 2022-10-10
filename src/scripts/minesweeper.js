@@ -4,11 +4,15 @@ const CELLS = document.querySelectorAll('td');
 
 CELLS.forEach(cell => cell.addEventListener('contextmenu', event => {
     event.preventDefault();
-    setTag(event.target);
+    if(!isGameOverData){
+        setTag(event.target);
+    }
 },true));
 
 CELLS.forEach(cell => cell.addEventListener('click', event => {
-    setStatus(event.target);
+    if(!isGameOverData){
+        setStatus(event.target);
+    }
 }));
 
 function getMinefield(){

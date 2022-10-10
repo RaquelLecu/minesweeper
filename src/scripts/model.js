@@ -2,6 +2,7 @@ let heightMinefieldData;
 let widthMinefieldData;
 let numMinesData;
 let cellsMinefieldData;
+let isGameOverData = false;
 
 function getMinefieldData(height,width,mines){
     heightMinefieldData = height;
@@ -88,6 +89,7 @@ function lostGameData(){
             }
         }
     }
+    isGameOverData = true;
 }
 
 function getNumberValueData(){
@@ -150,4 +152,5 @@ function winGameData(){
             }
         }
     }
+    isGameOverData = true;
 }

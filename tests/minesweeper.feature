@@ -134,7 +134,7 @@ Scenario: Win the game -> tagger all cells mined
 Given the user load the test board: "1x2"
 When the user exposes the "1-2" cell
 Then "1-1" cell should shows the "flag" tag
-@todo
+@done
 @mockDemo=1x2
 Scenario Outline: lose or win the game -> Changing the button face 
 Given the user load the test board: "1x2"
@@ -145,11 +145,11 @@ Examples:
 |  cell  |  face  |
 |     1-1|   "sad"|
 |     1-2|  "cool"|
-
+@todo
 @mockDemo=1x2
 Scenario Outline: Lose or win the game -> disabling cell 
 Given the user load the test board: "1x2"
-When the user presses the <cell> cell
+When the user exposes the '<cell>' cell
 Then all cells are disabled
 
 Examples:

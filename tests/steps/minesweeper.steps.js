@@ -159,3 +159,23 @@ Then('the face button should be {string}', async (string) => {
 	if(string == "cool") string = "\u{1F60E}";
 	expect(face).toBe(string);
 });
+//TODO
+Then('all cells are disabled', async () =>  {
+	let allCells = await page.locator('td');
+	let count = await allCells.count();
+	let newtext;
+	let newtext2;
+	let oldtext;
+	let oldtext2;
+	for (let i = 0; i < count; ++i){
+		oldtext = await allCells.nth(i).innerText();
+		oldtext2 = await allCells.nth(i).innerText();		
+	}
+	for (let i = 0; i < count; ++i){
+		await allCells.nth(i).click();
+		newtext = await allCells.nth(i).innerText();
+		newtext2 = await allCells.nth(i).innerText();		
+	}
+	expect(newtext).toBe(oldtext);
+	expect(newtext2).toBe(oldtext2);
+});
