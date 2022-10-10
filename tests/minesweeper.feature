@@ -156,15 +156,15 @@ Examples:
 |  cell  |
 |     1-1|
 |     1-2|
-@todo
+@done
 Scenario: Resetting the game
 Given a "1-1" cell exposed
 When the user presses the face button
 Then reset the game 
-
+@todo
 Scenario: Exposing a cell  with mouse
-When the user presses the left mouse button on the cell
-Then the cell should be "exposed"
+When the user presses the left mouse button on the "1-1" cell
+Then the "1-1" cell should be "exposed"
 
 Scenario Outline: Tagging a cell with mouse
 Given "1-1" cell shows the <tag> tag
