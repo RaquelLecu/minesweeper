@@ -145,7 +145,7 @@ Examples:
 |  cell  |  face  |
 |     1-1|   "sad"|
 |     1-2|  "cool"|
-@todo
+@done
 @mockDemo=1x2
 Scenario Outline: Lose or win the game -> disabling cell 
 Given the user load the test board: "1x2"
@@ -156,7 +156,7 @@ Examples:
 |  cell  |
 |     1-1|
 |     1-2|
-
+@todo
 Scenario: Resetting the game
 Given a "1-1" cell exposed
 When the user presses the face button

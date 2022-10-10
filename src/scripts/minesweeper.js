@@ -1,21 +1,28 @@
-const PARAMETERS = getParametersUrlView();
-getMinefield();
-const CELLS = document.querySelectorAll('td');
+launchInit();
 
-CELLS.forEach(cell => cell.addEventListener('contextmenu', event => {
-    event.preventDefault();
-    if(!isGameOverData){
-        setTag(event.target);
-    }
-},true));
+function launchInit(){
+    const PARAMETERS = getParametersUrlView();
+    getMinefield(PARAMETERS);
+    const CELLS = document.querySelectorAll('td');
+    const faceButton = document.querySelector('#face');
 
-CELLS.forEach(cell => cell.addEventListener('click', event => {
-    if(!isGameOverData){
-        setStatus(event.target);
-    }
-}));
+    CELLS.forEach(cell => cell.addEventListener('contextmenu', event => {
+        event.preventDefault();
+        if(!isGameOverData){
+            setTag(event.target);
+        }
+    },true));
+    
+    CELLS.forEach(cell => cell.addEventListener('click', event => {
+        if(!isGameOverData){
+            setStatus(event.target);
+        }
+    }));
+    
+    faceButton.addEventListener('click', resetGame);
+}
 
-function getMinefield(){
+function getMinefield(PARAMETERS){
     if(PARAMETERS === undefined){
         getMinefieldData(8,8,10);
         getMinesValueData();
@@ -78,4 +85,15 @@ function setStatus(cell){
         winGameData();
         winGameView(cellsMinefieldData);    
     }
+}
+
+function resetGame(){
+    const faceButton = document.querySelector('#face');
+    const timeButton = document.querySelector('#time');
+    const mineButton = document.querySelector('#mines');
+    
+    launchInit();
+    faceButton.innerHTML = '&#128578;';
+    timeButton.innerHTML = 0;
+    mineButton.innerHTML = numMinesData;
 }

@@ -179,3 +179,21 @@ Then('all cells are disabled', async () =>  {
 	expect(newtext).toBe(oldtext);
 	expect(newtext2).toBe(oldtext2);
 });
+
+Given('a {string} cell exposed', async (string) => {
+	await page.click('data-testid='+string);
+});
+
+When('the user presses the face button', async () => {
+	await page.click('id=face');
+});
+
+Then('reset the game', async () => {
+	for(let i=1; i<9; i++){
+		for(let j=1; j<9; j++){
+			let cell =  await page.locator('data-testid='+i+"-"+j);
+			await expect(cell).toHaveAttribute('class', "hidden");
+		}
+	}
+});
+

@@ -2,12 +2,13 @@ let heightMinefieldData;
 let widthMinefieldData;
 let numMinesData;
 let cellsMinefieldData;
-let isGameOverData = false;
+let isGameOverData;
 
 function getMinefieldData(height,width,mines){
     heightMinefieldData = height;
     widthMinefieldData = width;
     numMinesData = mines;
+    isGameOverData = false;
     getCellsMinefieldData();
 }
 
