@@ -1,7 +1,208 @@
 const { Given, When, Then } = require('@cucumber/cucumber');
 const { expect } = require('@playwright/test');
-const url = 'http://127.0.0.1:5500/src';
+const url = 'http://127.0.0.1:5500/src/';
 
-Given('a user opens the app', async () => {
+Given('a user opens the app', async() => {
 	await page.goto(url);
+});
+
+Given('the user load the test board: {string}', async (string) => {
+	await page.goto(url+'?mockDemo='+string);
+});
+
+Then('in the mines counter display should be {int}', async (int) => {
+	const displayMines = await page.locator('data-testid=displayMines').innerText();
+	expect(displayMines).toBe(int.toString());
+});
+
+Then('the time display should be: {int}', async (int) => {
+	const displayTime = await page.locator('data-testid=displayTime').innerText();
+	expect(displayTime).toBe(int.toString());
+});
+
+Then('the button face should be {string}', async (string) => {
+	let face = await page.locator('data-testid=face').innerText();
+	if(string == "happy") string = "\u{1F642}";
+	expect(face).toBe(string);
+});
+
+Then('all the cells in the minefield should be {string}', async (string) => { 
+	for(let i=1; i<9; i++){
+		for(let j=1; j<9; j++){
+			let cell =  await page.locator('data-testid='+i+"-"+j);
+			await expect(cell).toHaveAttribute('class', string);
+		}
+	}			
+});
+
+When('the user tags the {string} cell as {string}', async (string, string2) => {
+	let cellId = 'data-testid='+string;
+	if(string2 == "mined") await page.click(cellId, {button: 'right'});
+	if(string2 == "questionable"){
+		await page.click(cellId, {button: 'right'});
+		await page.click(cellId, {button: 'right'});
+	} 
+	let cell =  await page.locator('data-testid='+string).innerText();
+	if(string2 == "mined") string2 = "\u{1F6A9}";
+	if(string2 == "questionable") string2 = "\u{2753}";
+	expect(cell).toBe(string2);
+});
+
+Then('the cell {string} should show the {string} symbol', async (string, string2) => {
+	let cell =  await page.locator('data-testid='+string).innerText();
+	if(string2 == "mined") string2 = "\u{1F6A9}";
+	if(string2 == "question") string2 = "\u{2753}";
+	expect(cell).toBe(string2);
+});
+
+Given('the user tags the  {string} cell  as {string}', async (string, string2) => {
+	let cellId = 'data-testid='+string;
+	if(string2 == "flag") await page.click(cellId, {button: 'right'});
+	if(string2 == "question"){
+		await page.click(cellId, {button: 'right'});
+		await page.click(cellId, {button: 'right'});
+	}	
+});
+
+Given('the mines counter display show {int} mines', async (int) => {
+	const displayMines = await page.locator('data-testid=displayMines').innerText();
+	expect(displayMines).toBe(int.toString());
+});
+
+
+When('the user put the {string} tag on a {string} cell', async (string, string2) => {
+	let cellId = 'data-testid='+string2;
+	await page.click(cellId, {button: 'right'});
+});
+
+Then('the mines counter display should be {int} mines', async (int) => {
+	const displayMines = await page.locator('data-testid=displayMines').innerText();
+	expect(displayMines).toBe(int.toString());
+});
+
+Given('tags as mined the {string} cell', async (string) => {
+	let cellId = 'data-testid='+string;
+	await page.click(cellId, {button: 'right'});
+});
+
+Given('the mine counter is: {int}', async (int) => {
+	const displayMines = await page.locator('data-testid=displayMines').innerText();
+	expect(displayMines).toBe(int.toString());
+});
+	
+When('the user tags as mined the {string} cell', async (string) => {
+	let cellId = 'data-testid='+string;
+	await page.click(cellId, {button: 'right'});	
+});
+
+Then('the mines counter should be: {int}', async (int) => {
+	const displayMines = await page.locator('data-testid=displayMines').innerText();
+	expect(displayMines).toBe(int.toString());
+});
+
+When('the user exposes the {string} cell', async (string) => {
+	await page.click('data-testid='+string);
+});
+
+Then('the board should display the next information:', async (docString) => {
+	let cellsDoc = '';
+	let height = 1;
+	let width = 0;
+	let count = 0;
+	for(i=0; i<docString.length;i++){
+		if(docString[i] == '\n') height++;
+		else if(docString[i] != '|') cellsDoc = cellsDoc+docString[i];
+	}
+	width = (cellsDoc.length/height);
+	for(let i=1; i<=height; i++){
+		for(let j=1; j<=width; j++){
+			let cell =  await page.locator('data-testid='+i+"-"+j);
+			if(cellsDoc.substring(count,(count+1)) == 'x')
+				await expect(cell).toHaveAttribute('class', 'hidden');
+			else if(cellsDoc.substring(count,(count+1)) == '*')
+				expect(await cell.innerText()).toBe('\u{2738}');
+			else if (cellsDoc.substring(count,(count+1)) == ' ')
+				expect(await cell.innerText()).toBe("");
+			else if (cellsDoc.substring(count,(count+1)) == '1')
+				expect(await cell.innerText()).toBe('1');
+			else if (cellsDoc.substring(count,(count+1)) == '2')
+				expect(await cell.innerText()).toBe('2');
+			else if (cellsDoc.substring(count,(count+1)) == '3')
+				expect(await cell.innerText()).toBe('3');
+			count++;
+		}
+	}
+});
+
+Then('the {string} cell should show value {int}', async (string, int) => {        
+	let cellId = 'data-testid='+string;
+	let cell =  await page.locator(cellId).innerText();
+	expect(cell).toBe(int.toString());
+});
+
+Then('the cell {string} should be empty', async (string) => {
+	let cellId = 'data-testid='+string;
+	let cell =  await page.locator(cellId).innerText();
+	expect(cell).toBe('');
+});
+
+Then('{string} cell should shows the {string} tag', async (string, string2) =>{
+	if (string2 == "flag") string2 = '\u{1F6A9}';
+	let cellId = 'data-testid='+string;
+	let cell =  await page.locator(cellId).innerText();
+	expect(cell).toBe(string2);
+});
+
+Then('the face button should be {string}', async (string) => {       
+	let face = await page.locator('data-testid=face').innerText();
+	if(string == "sad") string = "\u{1F61F}";
+	if(string == "cool") string = "\u{1F60E}";
+	expect(face).toBe(string);
+});
+//TODO
+Then('all cells are disabled', async () =>  {
+	let allCells = await page.locator('td');
+	let count = await allCells.count();
+	let newtext;
+	let newtext2;
+	let oldtext;
+	let oldtext2;
+	for (let i = 0; i < count; ++i){
+		oldtext = await allCells.nth(i).innerText();
+		oldtext2 = await allCells.nth(i).innerText();		
+	}
+	for (let i = 0; i < count; ++i){
+		await allCells.nth(i).click();
+		newtext = await allCells.nth(i).innerText();
+		newtext2 = await allCells.nth(i).innerText();		
+	}
+	expect(newtext).toBe(oldtext);
+	expect(newtext2).toBe(oldtext2);
+});
+
+Given('a {string} cell exposed', async (string) => {
+	await page.click('data-testid='+string);
+});
+
+When('the user presses the face button', async () => {
+	await page.click('id=face');
+});
+
+Then('reset the game', async () => {
+	for(let i=1; i<9; i++){
+		for(let j=1; j<9; j++){
+			let cell =  await page.locator('data-testid='+i+"-"+j);
+			await expect(cell).toHaveAttribute('class', "hidden");
+		}
+	}
+});
+
+When('the user presses the left mouse button on the {string} cell', async (string) => {
+	await page.click('data-testid='+string);
+});
+
+Then('the {string} cell should be {string}', async (string, string2) => {
+	let cellId = 'data-testid='+string;
+	let cell =  await page.locator(cellId);
+	await expect(cell).toHaveAttribute('class', string2);
 });

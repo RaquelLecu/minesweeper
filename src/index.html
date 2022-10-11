@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/styles.css" />
+    <script type="text/javascript" src="scripts/model.js" defer></script>
+    <script type="text/javascript" src="scripts/view.js" defer></script>
     <script type="text/javascript" src="scripts/minesweeper.js" defer></script>
     <title>Minesweeper</title>
 </head>
@@ -12,92 +14,12 @@
     <div id="minesweeper">
         <div>
             <div id="headboard">
-                <div class="count" id="mines">10</div>
-                <button id="face">&#128578</button>
-                <div class="count" id="time">0</div>
+                <div class="count" id="mines" data-testid="displayMines">10</div>
+                <button id="face" data-testid="face">&#128578;</button>
+                <div class="count" id="time" data-testid="displayTime">0</div>
             </div>
         </div>
         <table>
-            <tr class="row">
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-            </tr>
-            <tr class="row">
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-            </tr>
-            <tr class="row">
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-            </tr>
-            <tr class="row">
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-            </tr>
-            <tr class="row">
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-            </tr>
-            <tr class="row">        
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-            </tr>
-            <tr class="row">
-                    <td class="hidden"></td>
-                    <td class="hidden"></td>
-                    <td class="hidden"></td>
-                    <td class="hidden"></td>
-                    <td class="hidden"></td>
-                    <td class="hidden"></td>
-                    <td class="hidden"></td>
-                    <td class="hidden"></td>
-            </tr>
-            <tr class="row">
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-                <td class="hidden"></td>
-            </tr>
         </table>
     </div>
 </body>
