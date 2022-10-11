@@ -45,6 +45,11 @@ function getMockDemo(file,column,mine){
     getNumberValueData();
     getMinefieldView(file, column);
     setDisplayMinesView(mine);
+    if(file == 8){
+        const CELLS = document.querySelectorAll('td');
+        CELLS.forEach(cell => cell.setAttribute('class','exposed'));
+        getMockDemoView(cellsMinefieldData);
+    }
 }
 
 function setTag(cell){
@@ -58,7 +63,7 @@ function setTag(cell){
         newTag = 'flag';
     }else if(oldTag == "\u{1F6A9}"){
         setNumMineData(1);
-        newTag = "question"
+        newTag = "question";
     }else if(oldTag == "\u{2753}") newTag = "blank";
     cellData = setTagData(coordinateCell[0], coordinateCell[1], newTag);
     if(cellData['status'] == 'hidden'){

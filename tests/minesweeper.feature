@@ -161,21 +161,10 @@ Scenario: Resetting the game
 Given a "1-1" cell exposed
 When the user presses the face button
 Then reset the game 
-@todo
+@done
 Scenario: Exposing a cell  with mouse
 When the user presses the left mouse button on the "1-1" cell
 Then the "1-1" cell should be "exposed"
-
-Scenario Outline: Tagging a cell with mouse
-Given "1-1" cell shows the <tag> tag
-When the user presses the right mouse button on the "1-1" cell
-Then "1-1" cell should shows the "<tag>" tag
-
-Examples:
-|    tag    |    tag    |
-|      blank|       flag|
-|       flag|   question|
-|   question|      blank|
 
 @mockDemo=8x8&status=exposed @manual
 Scenario: adding random mines and numbers values (perform minimum 5 times)

@@ -1,3 +1,5 @@
+let timer;
+
 function getParametersUrlView(){
     let parametersData;
     const URL = document.location.href;
@@ -54,6 +56,7 @@ function setDisplayMinesView(mines){
 }
 
 function setTagView(cell,tag){
+    if(timer === undefined) setTimeView(false);
     if(tag == "blank") cell.innerHTML = '';
     else if(tag == "flag") cell.innerHTML = '&#128681;';
     else if(tag == "question") cell.innerHTML = '&#10067;';
@@ -66,6 +69,7 @@ function setStatusView(cell, cellData){
 }
 
 function setValueView(cell, cellData){
+    if(timer === undefined) setTimeView(false);
     if(cellData['value'] == 'mine') lostGameView(cellsMinefieldData);
     else if(cellData['value'] != 'blank') cell.innerHTML = cellData['value'];
     else if(cellData['value'] == 'blank') cell.innerHTML = '';
@@ -75,6 +79,7 @@ function lostGameView(minefieldData){
     showAllMines(minefieldData);
     let face = document.querySelector('#face');
     face.innerHTML = '&#128543;';
+    setTimeView(true);
 }
 
 function showAllMines(minefieldData){
@@ -108,6 +113,7 @@ function setStatusNeighborView(minefieldData){
 function winGameView(minefieldData){
     let allCell = document.querySelectorAll('td');
     let face = document.querySelector('#face');
+    let mines = document.querySelector('#mines');
     const W = widthMinefieldData;
     for(let i=0; i<minefieldData.length;i++){
         for(let j=0; j<minefieldData[i].length;j++){
@@ -117,4 +123,29 @@ function winGameView(minefieldData){
         }
     }
     face.innerHTML = '&#128526;';
+    mines.innerHTML = 0;
+    setTimeView(true);
+}
+
+function getMockDemoView(minefieldData){
+    let allCell = document.querySelectorAll('td');
+    const W = widthMinefieldData;
+    for(let i=0; i<minefieldData.length;i++){
+        for(let j=0; j<minefieldData[i].length;j++){
+            if(minefieldData[i][j]['value'] == 'mine') allCell[W*i+j].innerHTML = '&#10040;';
+            else if(minefieldData[i][j]['value'] == 'blank') allCell[W*i+j].innerHTML = '';
+            else allCell[W*i+j].innerHTML = minefieldData[i][j]['value'];
+        }
+    }
+}
+
+function setTimeView(stop){
+    if(!stop){
+        let second = 1;
+        let time = document.querySelector("#time");
+        timer = window.setInterval(function(){
+            time.innerHTML = second;
+            second++;
+        },1000);
+    } else clearInterval(timer);
 }

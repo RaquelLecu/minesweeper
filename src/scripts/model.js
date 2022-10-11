@@ -154,4 +154,5 @@ function winGameData(){
         }
     }
     isGameOverData = true;
+    numMinesData = 0;
 }
